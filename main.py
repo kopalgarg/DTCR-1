@@ -14,7 +14,7 @@ INDEX = '4'
 
 
 os.environ["CUDA_VISIBLE_DEVICES"] = str(1)
-config = tf.ConfigProto()
+config = t.compat.v1.ConfigProto()
 config.gpu_options.allow_growth = True
 session = tf.Session(config=config)
 

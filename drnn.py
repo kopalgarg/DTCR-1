@@ -22,7 +22,7 @@ def dRNN(cell, inputs, rate, scope='default'):
     Outputs:
         outputs -- the outputs from the RNN.
     """
-    b, d = tf.unstack(tf.shape(inputs[0]))
+    b, d = tf.compat.v1.unstack(tf.shape(inputs[0]))
     n_steps = len(inputs)#t
     if rate < 0 or rate >= n_steps:#rate是一个int，代表本层的空洞数目
         raise ValueError('The \'rate\' variable needs to be adjusted.')
@@ -110,7 +110,7 @@ def dRNN(cell, inputs, rate, scope='default'):
     
     #sequence_length: 由两个因素决定，一个是从placeholder中告知的，一个是前面的补0，其实应该由第一个因素来决定
     #dilated_states：应该是[b*rate,,hidden_units],意义应该是RNN层在并行的处理了这个batch的数据后的final state
-    dilated_outputs, _ = tf.nn.static_rnn(#output shape ?? list, len = dialated_n_steps, each of them is [b*rate, hidden_units]
+    dilated_outputs, _ = tf.compat.v1.nn.static_rnn(#output shape ?? list, len = dialated_n_steps, each of them is [b*rate, hidden_units]
         cell, 
         dilated_inputs,
         dtype=tf.float32, 
